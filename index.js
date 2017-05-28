@@ -34,7 +34,7 @@ async function getLinks(content) {
 async function startScraping(...pages) {
 	pages = await Promise.all(pages.map(pageGET));
 	pages.forEach(page => {
-		if(!~page.text.indexOf(word)) {
+		if(~page.text.indexOf(word)) {
 			finish();
 		} else {
 			const links = getLinks(startScraping(links));
@@ -55,7 +55,7 @@ async function init() {
 		if(!firstContent) {
 			console.error("Invalid start site, could not get content");
 			process.exit(0);
-		} else if(!~firstContent.text.indexOf(word)) {
+		} else if(~firstContent.text.indexOf(word)) {
 			finish(true);
 		} else {
 			const links = getLinks(firstContent);
