@@ -32,12 +32,14 @@ function getLinks(content) {
 }
 
 async function startScraping(...links) {
+	console.log(links);
 	const pages = await Promise.all(links.map(link => pageGET(link)));
 	pages.filter(page => page).forEach(page => {
 		if(~page.text.indexOf(word)) {
 			finish();
 		} else {
-			startScraping(getLinks(page));
+			const urls = getLinks(page);
+			startScraping(urls);
 		}
 	});
 }
