@@ -31,15 +31,13 @@ function getLinks(content) {
 	return links;
 }
 
-async function startScraping(...links) {
-	console.log(links);
+async function startScraping(links) {
 	const pages = await Promise.all(links.map(link => pageGET(link)));
 	pages.filter(page => page).forEach(page => {
 		if(~page.text.indexOf(word)) {
 			finish();
 		} else {
-			const urls = getLinks(page);
-			startScraping(urls);
+			startScraping(getLinks(page));
 		}
 	});
 }
