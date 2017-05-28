@@ -3,4 +3,4 @@ global.Promise = require("bluebird");
 function init(word, start) {
 
 }
-console.log(process.argsv);
+console.log(process.argv);
