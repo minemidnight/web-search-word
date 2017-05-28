@@ -22,7 +22,6 @@ async function pageGET(url) {
 async function getLinks(content) {
 	const $ = cheerio.load(content.text); // eslint-disable-line id-length
 	const links = $("a").map((i, ele) => $(ele).attr("href")).get();
-	console.log(links);
 
 	links.forEach((link, i) => {
 		if(!link.startsWith("https://") || !link.startsWith("http://") || !link.startsWith("//")) {
@@ -60,7 +59,7 @@ async function init() {
 			finish(true);
 		} else {
 			const links = getLinks(firstContent);
-			console.log(links);
+			console.log(links, Object.keys(links));
 			if(!links || !links.length) {
 				console.log(`--------------------------------\nStart page has no links`);
 				process.exit(0);
