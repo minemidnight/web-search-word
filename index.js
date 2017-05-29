@@ -2,9 +2,11 @@ global.Promise = require("bluebird");
 const superagent = require("superagent");
 const cheerio = require("cheerio");
 let gets = 0;
+let pageCount = 0;
 
-async function finish() {
-	console.log(`--------------------------------\nFound word after ${gets} GET requests`);
+async function finish(url) {
+	console.log(`--------------------------------`);
+	console.log(`Found word after ${gets} GET requests and ${pageCount} page scrapes on ${url}`);
 	process.exit(0);
 }
 
@@ -34,8 +36,9 @@ function getLinks(content) {
 async function startScraping(links) {
 	const pages = await Promise.all(links.map(link => pageGET(link)));
 	pages.filter(page => page).forEach(page => {
+		pageCount++;
 		if(~page.text.indexOf(word)) {
-			finish();
+			finish(page.url);
 		} else {
 			startScraping(getLinks(page));
 		}
@@ -56,7 +59,7 @@ async function init() {
 			console.error("Invalid start site, could not get content");
 			process.exit(0);
 		} else if(~firstContent.text.indexOf(word)) {
-			finish(true);
+			finish(firstContent.url);
 		} else {
 			const links = getLinks(firstContent);
 			if(!links || !links.length) {
