@@ -43,7 +43,10 @@ async function startScraping(links) {
 		if(~page.text.indexOf(word)) {
 			finish(page.url);
 		} else {
-			startScraping(getLinks(page));
+			const urls = getLinks(page);
+			while(urls.length) {
+				startScraping(urls.splice(0, 50));
+			}
 		}
 	});
 }
