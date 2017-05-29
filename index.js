@@ -1,5 +1,5 @@
 global.Promise = require("bluebird");
-const snekfetch = require("snekfetch");
+const superagent = require("superagent");
 const cheerio = require("cheerio");
 let gets = 0;
 
@@ -11,7 +11,7 @@ async function finish() {
 async function pageGET(url) {
 	console.log(`Sending GET request to ${url}`);
 	try {
-		const res = await snekfetch.get(url);
+		const res = await superagent.get(url);
 		gets++;
 		return { url, text: res.text };
 	} catch(err) {
