@@ -1,6 +1,7 @@
 global.Promise = require("bluebird");
 const superagent = require("superagent");
 const cheerio = require("cheerio");
+const noRepeat = [];
 let gets = 0;
 let pageCount = 0;
 
@@ -11,7 +12,9 @@ async function finish(url) {
 }
 
 async function pageGET(url) {
+	if(~noRepeat.indexOf(url)) return false;
 	console.log(`Sending GET request to ${url}`);
+	noRepeat.push(url);
 	try {
 		const res = await superagent.get(url);
 		gets++;
