@@ -72,7 +72,10 @@ async function init() {
 				console.log(`--------------------------------\nStart page has no links`);
 				process.exit(0);
 			}
-			startScraping(links);
+
+			while(links.length) {
+				startScraping(links.splice(0, 50));
+			}
 		}
 	}
 }
