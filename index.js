@@ -7,7 +7,7 @@ let pageCount = 0;
 
 async function finish(url) {
 	console.log(`--------------------------------`);
-	console.log(`Found word after ${gets} GET requests and ${pageCount} page scrapes on ${url}`);
+	console.log(`Found ${word} after ${gets} GET requests and ${pageCount} page scrapes at ${url}`);
 	process.exit(0);
 }
 
