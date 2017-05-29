@@ -15,6 +15,7 @@ async function pageGET(url) {
 	if(~noRepeat.indexOf(url)) return false;
 	console.log(`Sending GET request to ${url}`);
 	noRepeat.push(url);
+	setTimeout(() => delete noRepeat[noRepeat.indexOf(url)], 10000);
 	try {
 		const res = await superagent.get(url);
 		gets++;
