@@ -24,7 +24,7 @@ function getLinks(content) {
 	const links = $("a").map((i, ele) => $(ele).attr("href")).get();
 
 	links.forEach((link, i) => {
-		if(!link.startsWith("https://") || !link.startsWith("http://") || !link.startsWith("//")) {
+		if(!(link.startsWith("https://") || link.startsWith("http://"))) {
 			links[i] = content.url + link;
 		}
 	});
